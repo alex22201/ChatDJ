@@ -1,50 +1,52 @@
-<!-- chat/templates/chat/massandger.html -->
+
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
+
     <meta charset="utf-8"/>
-    <title>Chat Room</title>
+    <title> Chat </title>
+    <link rel="shortcut icon" href="https://blog.otcommerce.com/wp-content/uploads/2017/08/chat.png"
+          type="image/x-icon">
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css">
+
+
 </head>
 <body>
-    <textarea id="chat-log" cols="90" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    {{ room_name|json_script:"room-name" }}
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+<script type="text/javascript" src="https://zengabor.github.io/zenscroll/zenscroll.js"></script>
+<script type="text/javascript">zenscroll.createScroller(document.getElementById('scrollable')).toY(600, 10000);</script>
 
-        const chatSocket = new WebSocket(
 
-            + window.location.host
-            +
-            + roomName
-            +
-        );
+<div class="container_main">
+    <form action="/send-message/" method="POST">
+        {% csrf_token %}
+        <h1>Chat</h1>
+        <div class="area">
 
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
-        };
 
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
 
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
 
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
-        };
-    </script>
+            {% for item in chat %}
+            <div class="container">
+                <p>{{item.text}}</p>
+                <span class="time-right" id="scrollable">{{item.data}}</span>
+            </div>
+            {% endfor %}
+            <p>{{res}}</p>
+        </div>
+
+        <input name="message" id="chat_message_input" type="text" size="100" placeholder="Введите текст" margin=10px>
+        <div class="theme-button" id="theme-button" align="left">
+            <input id="chat-message-submit" type="submit">
+            <input name="delete" id="delete-message-submit" type="submit" value="Clean">
+        </div>
+    </form>
+
+</div>
+</div>
+
+
 </body>
 </html>
