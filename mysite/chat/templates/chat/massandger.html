@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html>
@@ -15,29 +14,28 @@
 
 </head>
 <body>
-<script type="text/javascript" src="https://zengabor.github.io/zenscroll/zenscroll.js"></script>
-<script type="text/javascript">zenscroll.createScroller(document.getElementById('scrollable')).toY(600, 10000);</script>
 
 
 <div class="container_main">
     <form action="/send-message/" method="POST">
-        {% csrf_token %}
-        <h1>Chat</h1>
-        <div class="area">
+            {% csrf_token %}
 
+            <a href="/test/" class="text"><h1>Chat</h1></a>
+            <div class="area">
+                {% for item in chat %}
+                <div class="container">
 
+                    <p>fkdsaklfjka;</p>
 
-
-            {% for item in chat %}
-            <div class="container">
-                <p>{{item.text}}</p>
-                <span class="time-right" id="scrollable">{{item.data}}</span>
+                    <span class="time-right">{{item.data}}</span>
+                    <span class="time-left">{{item.author}}</span>
+                </div>
+                {% endfor %}
+                <p>{{res}}</p>
             </div>
-            {% endfor %}
-            <p>{{res}}</p>
-        </div>
 
-        <input name="message" id="chat_message_input" type="text" size="100" placeholder="Введите текст" margin=10px>
+        <input name="message" id="chat_message_input" type="text" size="100" autocomplete="off"
+               placeholder="Введите текст">
         <div class="theme-button" id="theme-button" align="left">
             <input id="chat-message-submit" type="submit">
             <input name="delete" id="delete-message-submit" type="submit" value="Clean">

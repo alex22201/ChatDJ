@@ -13,7 +13,7 @@ h1 {
     text-align: -webkit-left;
     word-break: break-all;
     clear: both;
-    display: table ;
+    display: table;
     content: "";
     width: 95%;
 }
@@ -33,7 +33,6 @@ h1 {
 }
 
 
-
 .container_main {
     border: 2px solid #dedede;
     background-color: #f1f1f1;
@@ -43,12 +42,6 @@ h1 {
     width: 98%;
     max-height: 600px;
 }
-
-/*.container::after {*/
-/*    content: "";*/
-/*    clear: both;*/
-/*    display: table;*/
-/*}*/
 
 .time-right {
     padding-right: 2%;
@@ -88,4 +81,11 @@ input[type="text"] {
     color: darkblue;
     font-size: 11px;
     font-family: "American Typewriter";
+
 }
+a.text:active, /* активная/посещенная ссылка */
+a.text:hover,  /* при наведении */
+a.text  {
+    text-decoration: none;
+      color: #666;
+   }
